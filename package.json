@@ -1,14 +1,14 @@
 {
   "name": "region-picker",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A region picker based on Vue and ElementUI.",
   "main": "dist/region-picker.js",
   "scripts": {
     "dev": "poi dev",
-    "docs": "poi build",
+    "docs": "poi build && gh-pages -d docs",
     "test": "echo Region Picker",
     "build": "webpack --config ./build/webpack.config.js",
-    "deploy": "poi build && gh-pages -d docs"
+    "deploy": "npm publish"
   },
   "repository": {
     "type": "git",
