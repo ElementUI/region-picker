@@ -1,0 +1,46 @@
+{
+  "name": "region-picker",
+  "version": "0.0.5",
+  "description": "A region picker based on Vue and ElementUI.",
+  "main": "dist/region-picker.js",
+  "scripts": {
+    "dev": "poi dev",
+    "docs": "poi build",
+    "test": "echo Region Picker",
+    "build": "webpack --config ./build/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ElementUI/region-picker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ElementUI/region-picker/issues"
+  },
+  "homepage": "https://ElementUI.github.io/region-picker",
+  "keywords": [
+    "element",
+    "vue",
+    "region picker",
+    "component"
+  ],
+  "author": "liril <god@liril.net>",
+  "license": "MIT",
+  "devDependencies": {
+    "css-loader": "^0.28.1",
+    "poi": "^8.0.0-rc.9",
+    "pug": "^2.0.0-rc.1",
+    "style-loader": "^0.17.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "url-loader": "^0.5.8",
+    "vue": "^2.3.3",
+    "vue-style-loader": "^3.0.1"
+  },
+  "dependencies": {
+    "throttle-debounce": "^1.0.1"
+  },
+  "poi": {
+    "entry": "src/docs/index.js",
+    "dist": "docs"
+  }
+}
