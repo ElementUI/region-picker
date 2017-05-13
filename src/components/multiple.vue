@@ -2,7 +2,7 @@
 .region-picker-multiple(v-clickoutside="hidePicker")
   .picker-toggle(
       @mouseup.capture="handleClickPickerToggle"
-      :class="{ opened: pickerVisible }"
+      :class="{ opened: pickerVisible, disabled: disabled }"
     )
     .selected-labels
       transition-group(name="el-zoom-in-center")
@@ -90,6 +90,12 @@
 <style lang="stylus">
 
 .region-picker-multiple
+  .picker-toggle.disabled
+    .selected-labels
+      cursor not-allowed
+      background-color #eef1f6
+      border-color #d1dbe5
+      color #bbb
   .selected-labels
     user-select none
     min-width 50px
@@ -173,6 +179,7 @@
     align-items center
     justify-content space-between
     button
+      margin 0 5px
       display inline-block
       line-height 1
       white-space nowrap
@@ -180,7 +187,6 @@
       background #fff
       border 1px solid #bfcbd9
       color #1f2d3d
-      margin 0
       border-radius 4px
       padding 7px 9px
       font-size 12px
@@ -218,6 +224,7 @@
 
 <script>
 import Clickoutside from '../utils/clickoutside';
+import emitter from '../utils/emitter';
 import debounce from 'throttle-debounce/debounce';
 
 export default {
@@ -226,6 +233,8 @@ export default {
   directives: {
     Clickoutside,
   },
+
+  mixins: [emitter],
 
   props: {
     value: {
@@ -240,6 +249,10 @@ export default {
       type: Number,
       default: 3,
     },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
 
   data() {
@@ -292,7 +305,33 @@ export default {
         }
         this.confirmed = false;
         this.records = [];
+        if (visible === false) {
+          const adcodes = this.selected.map((place) => place.adcode);
+          this.dispatch('ElFormItem', 'el.form.blur', [adcodes]);
+        }
       },
+    },
+    value: {
+      handler(adcodes) {
+        if (adcodes && adcodes.length) {
+          const { flattenMap } = this;
+          let length = adcodes.length;
+          for (let i = 0; length && i < flattenMap.length; i++) {
+            const place = flattenMap[i].place;
+            if (adcodes.indexOf(place.adcode) !== -1) {
+              if (this.selected.indexOf(place) === -1) {
+                this.select(place, true);
+              }
+              length--;
+              if (length === 0) {
+                this.scrollTo(place);
+                this.updateSelected(true);
+              }
+            }
+          }
+        }
+      },
+      immediate: true,
     },
   },
 
@@ -302,6 +341,9 @@ export default {
 
   methods: {
     handleClickPickerToggle(e) {
+      if (this.disabled) {
+        return false;
+      }
       if (e.target.tagName !== 'I') {
         this.pickerVisible = !this.pickerVisible;
       }
@@ -332,7 +374,7 @@ export default {
         }
       });
     },
-    updateSelected() {
+    updateSelected(shouldNotEmit) {
       this.selected = [];
       const values = [];
       const traverse = (place) => {
@@ -349,9 +391,12 @@ export default {
         }
         return null;
       };
-
       traverse(this.map);
-      this.$emit('input', values);
+
+      if (!shouldNotEmit) {
+        this.$emit('input', values);
+        this.dispatch('ElFormItem', 'el.form.change', [values]);
+      }
     },
     select(place, shouldNotRecord) {
       if (!shouldNotRecord) {
@@ -401,8 +446,8 @@ export default {
       this.searchValue = '';
     },
     handleConfirm() {
-      this.pickerVisible = false;
       this.confirmed = true;
+      this.pickerVisible = false;
       this.updateSelected();
     },
     revokeSelect() {
@@ -413,7 +458,6 @@ export default {
     remove(place) {
       this.select(place, true);
       this.updateSelected();
-      this.clickClose = true;
       return false;
     },
 

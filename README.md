@@ -5,6 +5,9 @@
 [![LICENSE](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/ElementUI/region-picker/blob/master/LICENSE)
 > A region picker based on Vue and ElementUI.
 
+## Demo
+[Region Picker](https://elementui.github.io/region-picker/)
+
 ## Installation
 ```bash
 yarn add region-picker
@@ -21,8 +24,20 @@ Vue.component(RegionPicker.name, RegionPicker)
 ```
 
 ```html
-<!-- component -->
+<!-- Single -->
 <region-picker></region-picker>
+
+<!-- Multiple -->
+<region-picker multiple></region-picker>
+
+<!-- Two Level -->
+<region-picker :max-level="2"></region-picker>
+
+<!-- Disabled -->
+<region-picker disabled></region-picker>
+
+<!-- Default Value -->
+<region-picker v-model="place"></region-picker>
 ```
 
 ## License
