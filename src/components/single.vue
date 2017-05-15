@@ -4,7 +4,7 @@
   )
   .picker-toggle(
         @click="handleClickPickerToggle"
-        :class="{ opened: pickerVisible, disabled: disabled }"
+        :class="{ opened: pickerVisible, disabled: disabled || noData }"
         @mouseenter="inputHover = true"
         @mouseleave="inputHover = false"
       )
@@ -13,7 +13,9 @@
       ref="input"
       @input="debouncedSearch"
     )
-    span.picker-label(v-if="!pickerVisible") {{ selected.fullName }}
+    span.picker-label(v-if="!pickerVisible")
+      span(v-if="noData") 无城市数据
+      span(v-else)  {{ selected.fullName }}
     i.picker-input-icon(
         :class="iconClass"
         @click="handleIconClick"
@@ -116,7 +118,7 @@ export default {
 
   computed: {
     provinces() {
-      return this.map.districts;
+      return this.map && this.map.districts;
     },
     cities() {
       if (!this.current.province) {
@@ -138,6 +140,9 @@ export default {
       }
       return 'el-icon-caret-bottom';
     },
+    noData() {
+      return !this.map || !Object.keys(this.map).length;
+    }
   },
 
   watch: {
@@ -184,7 +189,7 @@ export default {
 
   methods: {
     handleClickPickerToggle(e) {
-      if (this.disabled) {
+      if (this.disabled || this.noData) {
         return false;
       }
       this.pickerVisible = !this.pickerVisible;

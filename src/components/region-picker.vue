@@ -122,8 +122,7 @@ export default {
     // 城市数据
     data: {
       type: Object,
-      default: null,
-      required: true
+      default: () => {},
     },
 
     maxLevel: {
@@ -144,14 +143,20 @@ export default {
     };
   },
 
+  watch: {
+    data: {
+      handler(val) {
+        if (val && Object.keys(val).length) {
+          const result = createMap(JSON.parse(JSON.stringify(this.data)));
+          this.MAP = result.MAP;
+          this.FLATTEN_MAP = result.FLATTEN_MAP;
+        }
+      },
+      immediate: true
+    },
+  },
+
   created() {
-    if (this.data) {
-      const result = createMap(JSON.parse(JSON.stringify(this.data)));
-      this.MAP = result.MAP;
-      this.FLATTEN_MAP = result.FLATTEN_MAP;
-    } else {
-      this.$destroy();
-    }
   },
 
   methods: {
@@ -201,6 +206,8 @@ export default {
       input
         background-color #eef1f6
         border-color #d1dbe5
+        color #bbb
+      .picker-label
         color #bbb
 
     .picker-label

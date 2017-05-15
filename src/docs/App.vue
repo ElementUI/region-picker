@@ -20,6 +20,9 @@
 
     h3 多选默认值
     region-picker(v-model="multiplePlace", multiple, :data="data")
+
+    h3 无城市数据
+    region-picker
 </template>
 
 <script>

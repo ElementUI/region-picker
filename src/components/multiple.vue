@@ -2,10 +2,12 @@
 .region-picker-multiple(v-clickoutside="hidePicker")
   .picker-toggle(
       @mouseup.capture="handleClickPickerToggle"
-      :class="{ opened: pickerVisible, disabled: disabled }"
+      :class="{ opened: pickerVisible, disabled: disabled || noData }"
     )
     .selected-labels
-      transition-group(name="el-zoom-in-center")
+      template(v-if="noData")
+        span 无城市数据
+      transition-group(name="el-zoom-in-center", v-else)
         span.selected-label(
           v-for="place in selected"
           :key="place.adcode"
@@ -275,7 +277,7 @@ export default {
 
   computed: {
     provinces() {
-      return this.map.districts;
+      return this.map && this.map.districts;
     },
     cities() {
       if (!this.current.province) {
@@ -295,6 +297,9 @@ export default {
       }
       return 'el-icon-caret-bottom';
     },
+    noData() {
+      return !this.map || !Object.keys(this.map).length;
+    }
   },
 
   watch: {
@@ -341,7 +346,7 @@ export default {
 
   methods: {
     handleClickPickerToggle(e) {
-      if (this.disabled) {
+      if (this.disabled || this.noData) {
         return false;
       }
       if (e.target.tagName !== 'I') {
