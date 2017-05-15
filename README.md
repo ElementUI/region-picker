@@ -17,6 +17,7 @@ yarn add region-picker
 ## Usage
 ```javascript
 import RegionPicker from 'region-picker'
+import data from 'region-picker/data.json'
 
 Vue.use(RegionPicker)
 // or
@@ -25,19 +26,19 @@ Vue.component(RegionPicker.name, RegionPicker)
 
 ```html
 <!-- Single -->
-<region-picker></region-picker>
+<region-picker :data="data"></region-picker>
 
 <!-- Multiple -->
-<region-picker multiple></region-picker>
+<region-picker multiple :data="data"></region-picker>
 
 <!-- Two Level -->
-<region-picker :max-level="2"></region-picker>
+<region-picker :max-level="2" :data="data"></region-picker>
 
 <!-- Disabled -->
-<region-picker disabled></region-picker>
+<region-picker disabled :data="data"></region-picker>
 
 <!-- Default Value -->
-<region-picker v-model="place"></region-picker>
+<region-picker v-model="place" :data="data"></region-picker>
 ```
 
 ## License

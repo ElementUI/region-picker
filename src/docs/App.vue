@@ -4,26 +4,27 @@
     p 用于选择行政区
 
     h3 单选
-    region-picker
+    region-picker(:data="data")
 
     h3 多选
-    region-picker(multiple)
+    region-picker(multiple, :data="data")
 
     h3 二级
-    region-picker(:max-level=2)
+    region-picker(:max-level=2, :data="data")
 
     h3 禁用
-    region-picker(disabled)
+    region-picker(disabled, :data="data")
 
     h3 单选默认值
-    region-picker(v-model="singlePlace")
+    region-picker(v-model="singlePlace", :data="data")
 
     h3 多选默认值
-    region-picker(v-model="multiplePlace", multiple)
+    region-picker(v-model="multiplePlace", multiple, :data="data")
 </template>
 
 <script>
 import RegionPicker from '../index';
+import data from '../components/data';
 
 export default {
   name: 'app',
@@ -32,6 +33,7 @@ export default {
   },
   data() {
     return {
+      data,
       singlePlace: '310107',
       multiplePlace: ['310101', '310104', '310105', '310106', '310109', '310110', '310112', '310113', '310114', '310115', '310116', '310117', '310118', '310120', '310151']
     }

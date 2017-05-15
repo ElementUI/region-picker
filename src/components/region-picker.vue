@@ -19,7 +19,6 @@
 <script>
 import Single from './single.vue';
 import Multiple from './multiple.vue';
-import Data from './data.json';
 import './icon.css';
 
 function createMap(country) {
@@ -123,7 +122,8 @@ export default {
     // 城市数据
     data: {
       type: Object,
-      default: () => Data,
+      default: null,
+      required: true
     },
 
     maxLevel: {
@@ -145,9 +145,13 @@ export default {
   },
 
   created() {
-    const result = createMap(JSON.parse(JSON.stringify(Data)));
-    this.MAP = result.MAP;
-    this.FLATTEN_MAP = result.FLATTEN_MAP;
+    if (this.data) {
+      const result = createMap(JSON.parse(JSON.stringify(this.data)));
+      this.MAP = result.MAP;
+      this.FLATTEN_MAP = result.FLATTEN_MAP;
+    } else {
+      this.$destroy();
+    }
   },
 
   methods: {
