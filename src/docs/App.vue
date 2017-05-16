@@ -23,6 +23,9 @@
 
     h3 无城市数据
     region-picker
+
+    h3 异步数据加载
+    region-picker(v-model="defferedPlace", :data="defferedData")
 </template>
 
 <script>
@@ -37,10 +40,15 @@ export default {
   data() {
     return {
       data,
+      defferedData: {},
       singlePlace: '310107',
-      multiplePlace: ['310101', '310104', '310105', '310106', '310109', '310110', '310112', '310113', '310114', '310115', '310116', '310117', '310118', '310120', '310151']
+      multiplePlace: ['310101', '310104', '310105', '310106', '310109', '310110', '310112', '310113', '310114', '310115', '310116', '310117', '310118', '310120', '310151'],
+      defferedPlace: '310107'
     }
   },
+  mounted() {
+    setTimeout(() => this.defferedData= data, 3000);
+  }
 };
 </script>
 

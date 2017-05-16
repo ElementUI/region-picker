@@ -163,21 +163,14 @@ export default {
         this.dispatch('ElFormItem', 'el.form.change', [place.adcode]);
       },
     },
-    value: {
-      handler(adcode) {
-        if (adcode) {
-          const { flattenMap } = this;
-          for (let i = 0; i < flattenMap.length; i++) {
-            const place = flattenMap[i].place;
-            if (place.adcode === adcode) {
-              this.select(place);
-              return true;
-            }
-          }
+    map: {
+      handler(map) {
+        if (map && Object.keys(map).length) {
+          this.setValue(this.value);
         }
       },
-      immediate: true,
-    },
+      immediate: true
+    }
   },
 
   created() {
@@ -188,6 +181,18 @@ export default {
   },
 
   methods: {
+    setValue(adcode) {
+      if (adcode) {
+        const { flattenMap } = this;
+        for (let i = 0; i < flattenMap.length; i++) {
+          const place = flattenMap[i].place;
+          if (place.adcode === adcode) {
+            this.select(place);
+            return true;
+          }
+        }
+      }
+    },
     handleClickPickerToggle(e) {
       if (this.disabled || this.noData) {
         return false;

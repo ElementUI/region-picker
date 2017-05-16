@@ -316,24 +316,10 @@ export default {
         }
       },
     },
-    value: {
-      handler(adcodes) {
-        if (adcodes && adcodes.length) {
-          const { flattenMap } = this;
-          let length = adcodes.length;
-          for (let i = 0; length && i < flattenMap.length; i++) {
-            const place = flattenMap[i].place;
-            if (adcodes.indexOf(place.adcode) !== -1) {
-              if (this.selected.indexOf(place) === -1) {
-                this.select(place, true);
-              }
-              length--;
-              if (length === 0) {
-                this.scrollTo(place);
-                this.updateSelected(true);
-              }
-            }
-          }
+    map: {
+      handler(map) {
+        if (map && Object.keys(map).length) {
+          this.setValue(this.value);
         }
       },
       immediate: true,
@@ -345,6 +331,25 @@ export default {
   },
 
   methods: {
+    setValue(adcodes) {
+      if (adcodes && adcodes.length) {
+        const { flattenMap } = this;
+        let length = adcodes.length;
+        for (let i = 0; length && i < flattenMap.length; i++) {
+          const place = flattenMap[i].place;
+          if (adcodes.indexOf(place.adcode) !== -1) {
+            if (this.selected.indexOf(place) === -1) {
+              this.select(place, true);
+            }
+            length--;
+            if (length === 0) {
+              this.scrollTo(place);
+              this.updateSelected(true);
+            }
+          }
+        }
+      }
+    },
     handleClickPickerToggle(e) {
       if (this.disabled || this.noData) {
         return false;
