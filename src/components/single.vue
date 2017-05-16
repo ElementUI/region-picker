@@ -133,7 +133,7 @@ export default {
       return this.current.city.districts;
     },
     iconClass() {
-      if (this.selected.adcode && this.inputHover) {
+      if (this.selected.adcode && this.inputHover && !this.disabled) {
         return 'el-icon-circle-close';
       } else if (this.pickerVisible) {
         return 'el-icon-caret-top';
@@ -263,7 +263,7 @@ export default {
       }
     },
     handleIconClick(e) {
-      if (this.selected.adcode && this.inputHover) {
+      if (this.selected.adcode && this.inputHover && !this.disabled) {
         this.select({});
         this.$nextTick(() => {
           this.$refs.province.scrollTop = 0;

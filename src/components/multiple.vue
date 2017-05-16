@@ -98,6 +98,10 @@
       background-color #eef1f6
       border-color #d1dbe5
       color #bbb
+      .selected-label
+        i:hover
+          color #20a0ff
+          background transparent
   .selected-labels
     user-select none
     min-width 50px
@@ -466,9 +470,11 @@ export default {
       });
     },
     remove(place) {
-      this.select(place, true);
-      this.updateSelected();
-      return false;
+      if (!this.disabled) {
+        this.select(place, true);
+        this.updateSelected();
+        return false;
+      }
     },
 
   },

@@ -209,6 +209,8 @@ export default {
         color #bbb
       .picker-label
         color #bbb
+      .picker-input-icon
+        cursor not-allowed
 
     .picker-label
       position absolute
