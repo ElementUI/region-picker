@@ -320,6 +320,12 @@ export default {
         }
       },
     },
+    value: {
+      handler(adcodes) {
+        this.setValue(adcodes);
+      },
+      immediate: true,
+    },
     map: {
       handler(map) {
         if (map && Object.keys(map).length) {
@@ -348,10 +354,16 @@ export default {
             length--;
             if (length === 0) {
               this.scrollTo(place);
-              this.updateSelected(true);
             }
           }
         }
+        for (let i = 0; i < this.selected.length; i++) {
+          const place = this.selected[i];
+          if (adcodes.indexOf(place.adcode) === -1) {
+            this.select(place, true);
+          }
+        }
+        this.updateSelected(true);
       }
     },
     handleClickPickerToggle(e) {

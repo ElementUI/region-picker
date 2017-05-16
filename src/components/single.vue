@@ -163,6 +163,12 @@ export default {
         this.dispatch('ElFormItem', 'el.form.change', [place.adcode]);
       },
     },
+    value: {
+      handler(value) {
+        this.setValue(value);
+      },
+      immediate: true
+    },
     map: {
       handler(map) {
         if (map && Object.keys(map).length) {
