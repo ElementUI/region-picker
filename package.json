@@ -1,6 +1,6 @@
 {
   "name": "region-picker",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A region picker based on Vue and ElementUI.",
   "main": "dist/region-picker.js",
   "scripts": {
@@ -27,6 +27,11 @@
   "author": "liril <god@liril.net>",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.24.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.1",
     "gh-pages": "^1.0.0",

@@ -39,31 +39,12 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: [
-            {
-              test: /\.(styl|stylus)$/,
-              use: [
-                'vue-style-loader',
-                'css-loader',
-                'stylus-loader',
-              ]
-            },
-            {
-              test: /\.css$/,
-              use: [
-                'vue-style-loader',
-                'css-loader'
-              ]
-            },
-          ]
-        }
+        loader: 'vue-loader'
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        exclude: /node_modules/
       },
       {
         test: /\.css$/,
