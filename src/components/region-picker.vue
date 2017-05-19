@@ -178,9 +178,19 @@ export default {
       }
     },
 
-    getCityByName({ province = '.*', city = '.*', district = '.*' }) {
-      const name = [province, city, district].filter(i => i).join(' \/? ');
-      const result = this.FLATTEN_MAP.find(m => new RegExp(name).test(m.fullName));
+    getCityByName(name) {
+      const province = name.province ? name.province : '.*';
+      const city = name.city ? name.city : '.*';
+      const district = name.district ? name.district : '.*';
+      const array = [province, city, district];
+      if (!name.district) {
+        array.pop();
+        if (!name.city) {
+          array.pop();
+        }
+      }
+      const regexp = array.join(' \/ ');
+      const result = this.FLATTEN_MAP.find(m => new RegExp(regexp).test(m.fullName));
       if (result) {
         return result.place;
       } else {

@@ -263,7 +263,10 @@ export default {
           const keys = Object.keys(parent.districts);
           const index = keys.indexOf(adcode);
           this.$nextTick(() => {
-            this.$refs[map[level]].scrollTop = index * 36;
+            const dom = this.$refs[map[level]];
+            if (dom) {
+              dom.scrollTop = index * 36;
+            }
           });
         }
       }

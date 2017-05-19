@@ -451,7 +451,10 @@ export default {
           const index = keys.indexOf(adcode);
           this.current[map[level]] = place;
           this.$nextTick(() => {
-            this.$refs[map[level]].scrollTop = index * 36;
+            const dom = this.$refs[map[level]];
+            if (dom) {
+              dom.scrollTop = index * 36;
+            }
           });
         }
       }
