@@ -163,6 +163,30 @@ export default {
     propagateInput(value) {
       this.$emit('input', value);
     },
+
+    getCityByAdcode(adcode) {
+      if (!adcode) {
+        return null;
+      }
+
+      const city = this.FLATTEN_MAP.find(m => m.place.adcode === adcode);
+
+      if (city) {
+        return city.place;
+      } else {
+        return null;
+      }
+    },
+
+    getCityByName({ province = '.*', city = '.*', district = '.*' }) {
+      const name = [province, city, district].filter(i => i).join(' \/? ');
+      const result = this.FLATTEN_MAP.find(m => new RegExp(name).test(m.fullName));
+      if (result) {
+        return result.place;
+      } else {
+        return null;
+      }
+    }
   },
 };
 
