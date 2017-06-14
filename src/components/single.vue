@@ -1,25 +1,26 @@
 <template lang="pug">
 .region-picker-single(
-    v-clickoutside="hidePicker"
-  )
+  v-clickoutside="hidePicker"
+)
   .picker-toggle(
-        @click="handleClickPickerToggle"
-        :class="{ opened: pickerVisible, disabled: disabled || noData }"
-        @mouseenter="inputHover = true"
-        @mouseleave="inputHover = false"
-      )
+    @click="handleClickPickerToggle"
+    :class="{ opened: pickerVisible, disabled: disabled || noData }"
+    @mouseenter="inputHover = true"
+    @mouseleave="inputHover = false"
+  )
     input(
       v-model="searchValue"
       ref="input"
       @input="debouncedSearch"
+      :placeholder="Object.keys(selected).length ? '' : placeholder"
     )
     span.picker-label(v-if="!pickerVisible")
       span(v-if="noData") 无城市数据
       span(v-else)  {{ selected.fullName }}
     i.picker-input-icon(
-        :class="iconClass"
-        @click="handleIconClick"
-      )
+      :class="iconClass"
+      @click="handleIconClick"
+    )
 
   transition(name="el-zoom-in-top")
     .picker-menu(v-show="pickerVisible")
@@ -96,6 +97,9 @@ export default {
       type: Boolean,
       default: false,
     },
+    placeholder: {
+      type: String,
+    },
   },
 
   data() {
@@ -142,6 +146,8 @@ export default {
     },
     noData() {
       return !this.map || !Object.keys(this.map).length;
+    },
+    computedPlaceholder() {
     }
   },
 

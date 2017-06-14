@@ -134,6 +134,10 @@ export default {
       type: Boolean,
       default: false,
     },
+
+    placeholder: {
+      type: String,
+    },
   },
 
   data() {
@@ -234,6 +238,14 @@ export default {
   .picker-toggle
     position relative
     cursor pointer
+
+    input.placeholder
+      position absolute
+      top 0
+      right 0
+      bottom 0
+      left 0
+      border none
 
     &.disabled
       cursor not-allowed

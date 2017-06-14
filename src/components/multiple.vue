@@ -5,6 +5,10 @@
       :class="{ opened: pickerVisible, disabled: disabled || noData }"
     )
     .selected-labels
+      input.placeholder(
+        :placeholder="placeholder"
+        v-show="!noData && !selected.length"
+      )
       template(v-if="noData")
         span 无城市数据
       transition-group(name="el-zoom-in-center", v-else)
@@ -258,7 +262,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    }
+    },
+    placeholder: {
+      type: String,
+    },
   },
 
   data() {

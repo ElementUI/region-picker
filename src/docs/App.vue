@@ -9,6 +9,9 @@
     h3 多选
     region-picker(multiple, :data="data")
 
+    h3 占位符
+    region-picker(:data="data", placeholder="请选择城市")
+
     h3 二级
     region-picker(:max-level=2, :data="data")
 
