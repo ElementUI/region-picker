@@ -89,6 +89,10 @@ function createMap(country) {
     return object;
   }
 
+  FLATTEN_MAP.push({
+    fullName: country.name,
+    place: country,
+  });
   const MAP = traverse(country, 0);
   return {
     MAP,
