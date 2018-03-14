@@ -1,0 +1,417 @@
+// Variable
+$font-size-base = 14px
+$color-white = #FFF
+$color-primary = #409EFF
+$color-info = #909399
+$color-text-regular = #606266
+$color-text-secondary = #909399
+$color-text-placeholder = #C0C4CC
+$color-background-base = #F5F7FA
+$border-color-base = #DCDFE6
+$border-color-hover = #C0C4CC
+$border-color-light = #E4E7ED
+$height-option = 34px
+$height-input = 40px
+$padding-input = 0 15px
+$width-column = 150px
+$arrow-size = 6px
+$background-color-base = #F5F7FA
+$disabled-fill-base = $background-color-base
+$disabled-border-base = $color-text-placeholder
+$disabled-color-base = $border-color-light
+
+// Transition
+.el-zoom-in-top-enter-active
+.el-zoom-in-top-leave-active
+  opacity 1
+  transform scaleY(1)
+  transition transform 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms, opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms
+  transform-origin center top
+
+.el-zoom-in-top-enter
+.el-zoom-in-top-leave-active
+  opacity 0
+  transform scaleY(0)
+
+.el-zoom-in-bottom-enter-active
+.el-zoom-in-bottom-leave-active
+  opacity 1
+  transform scaleY(1)
+  transition transform 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms, opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms
+  transform-origin center bottom
+
+.el-zoom-in-bottom-enter
+.el-zoom-in-bottom-leave-active
+  opacity 0
+  transform scaleY(0)
+
+.el-zoom-in-center-enter-active
+.el-zoom-in-center-leave-active
+  transition all .3s cubic-bezier(.55,0,.1,1)
+
+.el-zoom-in-center-enter
+.el-zoom-in-center-leave-active
+  opacity 0
+  transform scaleX(0)
+
+// Region Picker
+.region-picker
+  font-size $font-size-base
+  position relative
+  width 100%
+  user-select none
+  margin 0
+  box-sizing border-box
+  &.focus
+    .region-picker__picker
+      border-color $color-primary
+  &.multiple
+    .region-picker__search
+      border-bottom 1px solid $border-color-light
+    .region-picker__toolbar
+      border-top 1px solid $border-color-light
+
+  &__picker
+    width 100%
+    min-height $height-input
+    border 1px solid $border-color-base
+    border-radius 4px
+    cursor pointer
+    position relative
+
+    &.disabled
+      cursor not-allowed
+      background-color $disabled-fill-base
+      border-color $disabled-border-base
+      color $disabled-color-base
+    &:hover
+      border-color $border-color-hover
+    &__suffix
+      position absolute
+      height 100%
+      top 0
+      right 10px
+      text-align center
+      transition all .3s
+      line-height 40px
+      i
+        min-width 14px
+        min-height 14px
+        transition transform .3s
+        transform rotateZ(0deg)
+        &.is-reverse
+          transform rotateZ(180deg)
+      i::after
+        content ''
+        height 100%
+        width 0
+        display inline-block
+        vertical-align middle
+      i.el-icon-circle-close
+        color $color-text-placeholder
+        min-width 14px
+        min-height 14px
+        &:hover
+          color $color-text-secondary
+
+    .region-picker__search
+      input
+        padding-right 35px
+      &.disabled
+        input
+          padding-right 15px
+  &__placeholder
+    display block
+    line-height $height-input
+    height $height-input
+    padding $padding-input
+    color $color-text-placeholder
+  &__tag
+    &__list
+      line-height $height-input
+      min-height $height-input
+      display flex
+      flex-wrap wrap
+      align-items center
+    &__item
+      display inline-block
+      background-color alpha($color-info, .1)
+      border 1px solid alpha($color-info, .2)
+      padding 0 10px
+      height 32px
+      line-height 32px
+      color $color-info
+      border-radius 4px
+      font-size 12px
+      white-space nowrap
+      box-sizing border-box
+      margin 2px 0 2px 6px
+      &:hover
+        border-color $border-color-hover
+      .el-icon-circle-close
+        cursor pointer
+        margin-left 5px
+        min-width 14px
+        min-height 14px
+        color $color-text-placeholder
+        &:hover
+          color $color-text-secondary
+  &__panel
+    position absolute
+    z-index 1000
+    background-color $color-white
+    &.placement-bottom
+      margin-top 10px
+    &.placement-top
+      bottom 100%
+      margin-bottom 10px
+    &.is-hidden
+      display none
+    &.max-level-1
+      min-width 1 * $width-column
+    &.max-level-2
+      min-width 2 * $width-column
+    &.max-level-3
+      min-width 3 * $width-column
+    border 1px solid $border-color-base
+    &:hover
+      border-color $border-color-hover
+      .region-picker__panel__arrow
+          border-bottom-color $border-color-hover
+    &__arrow
+    &__arrow::after
+      position absolute
+      display block
+      width 0
+      height 0
+      border-color transparent
+      border-style solid
+
+    &__arrow
+      border-width $arrow-size
+      filter drop-shadow(0 2px 12px rgba(0, 0, 0, .03))
+      left 75px
+      margin-right 0 - $arrow-size
+      &::after
+        content ''
+        border-width $arrow-size
+        margin-left 0 - $arrow-size
+      &.placement-bottom
+        top 0 - $arrow-size
+        border-bottom-color $border-color-base
+        border-top-width 0
+        &::after
+          top 1px
+          border-top-width 0
+          border-bottom-color #fff
+      &.placement-top
+        bottom 0 - $arrow-size
+        border-top-color $border-color-base
+        border-bottom-width 0
+        &::after
+          bottom 1px
+          border-bottom-width 0
+          border-top-color #fff
+  &__search
+    input
+      box-sizing border-box
+      width 100%
+      height $height-input
+      line-height 1
+      border none
+      outline none
+      padding $padding-input
+      margin 0
+      color $color-text-regular
+      font-size $font-size-base
+      &::placeholder
+        color $color-text-placeholder
+  &__label
+    position absolute
+    top 0
+    left 0
+    right 0
+    height 100%
+    line-height 40px
+    padding $padding-input
+    padding-right 35px
+    text-align left
+    white-space nowrap
+    text-overflow ellipsis
+    overflow-x scroll
+
+  &__wrap
+    overflow hidden
+  &__options
+    overflow hidden
+    height 100%
+    display flex
+  &__option__list
+    min-width 150px
+    max-height 274px
+    overflow-x hidden
+    overflow-y scroll
+    padding 0
+    margin 0
+    position relative
+    &:not(:last-of-type)
+      border-right 1px solid $border-color-light
+  &__option__item
+    display block
+    padding $padding-input
+    box-sizing border-box
+    white-space nowrap
+    color $color-text-regular
+    height $height-option
+    line-height $height-option
+    cursor pointer
+    &.hover
+      background-color $color-background-base
+    &.selected
+      color $color-primary
+    &.disabled
+      cursor not-allowed
+      background-color $disabled-fill-base
+      border-color $disabled-border-base
+      color $disabled-color-base
+    &-default
+      display flex
+      align-items center
+      svg
+        margin-right 5px
+
+  &.disabled
+    cursor not-allowed
+    background-color $disabled-fill-base
+    border-color $disabled-border-base
+    color $disabled-color-base
+    .region-picker__picker
+      pointer-events none
+
+  &__result
+    max-height 274px
+    overflow-x hidden
+    overflow-y scroll
+    &__wrap
+      position relative
+      &:not(:last-of-type)
+        padding-bottom 24px
+        &::after
+          content ''
+          position absolute
+          display block
+          left 15px
+          right 15px
+          bottom 12px
+          height 1px
+          background $border-color-light
+    &__title
+      padding-left 15px
+      font-size 12px
+      line-height 30px
+      color $color-info
+    &__empty
+      padding 10px 0
+      margin 0
+      text-align center
+      color #999
+    &__list
+      list-style none
+      padding 0
+      margin 0
+    &__item
+      display block
+      padding $padding-input
+      box-sizing border-box
+      white-space nowrap
+      color $color-text-regular
+      height $height-option
+      line-height $height-option
+      cursor pointer
+      &:hover
+      &.hover
+        background-color $color-background-base
+      &.selected
+        color $color-primary
+      &.disabled
+        cursor not-allowed
+        background-color $disabled-fill-base
+        border-color $disabled-border-base
+        color $disabled-color-base
+      &-default
+        display flex
+        align-items center
+        svg
+          margin-right 5px
+
+  &__toolbar
+    display flex
+    justify-content space-between
+    align-items center
+    padding $padding-input
+    height $height-input
+    .region-picker__option__item
+      padding 0
+      margin 0
+
+  &__button
+    display inline-block
+    line-height 1
+    white-space nowrap
+    cursor pointer
+    background $color-white
+    border 1px solid $border-color-base
+    color $color-text-regular
+    -webkit-appearance none
+    text-align center
+    box-sizing border-box
+    outline none
+    margin 0
+    transition .1s
+    user-select none
+    padding 6px 10px
+    border-radius 4px
+    & + .region-picker__button
+      margin-left 10px
+
+    &:hover
+    &:focus
+      color $color-primary
+      border-color mix($color-white, $color-primary, 70%)
+      background-color mix($color-white, $color-primary, 90%)
+
+    &.primary
+      color $color-white
+      border-color $color-primary
+      background-color $color-primary
+      &:hover
+      &:focus
+        background-color mix($color-white, $color-primary, 20%)
+        border-color mix($color-white, $color-primary, 20%)
+
+// SVG Icon
+.svg-icon
+  display inline-block
+  width 16px
+  height 16px
+  color inherit
+  vertical-align middle
+  fill none
+  stroke currentColor
+
+
+.svg-fill
+  fill currentColor
+  stroke none
+
+.svg-up
+  transform rotate(0deg)
+
+.svg-right
+  transform rotate(90deg)
+
+.svg-down
+  transform rotate(180deg)
+
+.svg-left
+  transform rotate(-90deg)

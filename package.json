@@ -1,14 +1,22 @@
 {
   "name": "region-picker",
-  "version": "0.0.17",
+  "version": "1.0.0",
   "description": "A region picker based on Vue and ElementUI.",
-  "main": "dist/region-picker.js",
+  "main": "dist/region-picker.cjs.js",
+  "module": "dist/region-picker.es.js",
+  "cdn": "dist/region-picker.min.js",
+  "unpkg": "dist/region-picker.min.js",
+  "jsdelivr": "dist/region-picker.min.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "poi dev",
+    "dev": "poi",
     "docs": "poi build && gh-pages -d docs",
     "test": "echo Region Picker",
-    "build": "webpack --config ./build/webpack.config.js",
-    "deploy": "npm run build && npm publish"
+    "build": "bili",
+    "postbuild": "cp -rf src/components/fonts dist; cp src/data.json dist/",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -26,30 +34,18 @@
   ],
   "author": "liril <god@liril.net>",
   "license": "MIT",
+  "peerDependencies": {
+    "vue": "^2.5.13"
+  },
+  "dependencies": {},
   "devDependencies": {
-    "babel-core": "^6.24.1",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.4.0",
-    "babel-preset-stage-2": "^6.24.1",
-    "babel-register": "^6.24.1",
-    "copy-webpack-plugin": "^4.0.1",
-    "css-loader": "^0.28.1",
-    "gh-pages": "^1.0.0",
-    "poi": "^8.0.0-rc.9",
-    "pug": "^2.0.0-rc.1",
-    "style-loader": "^0.17.0",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.1",
-    "url-loader": "^0.5.8",
-    "vue": "^2.3.3",
-    "vue-style-loader": "^3.0.1"
-  },
-  "dependencies": {
-    "throttle-debounce": "^1.0.1"
-  },
-  "poi": {
-    "entry": "src/docs/index.js",
-    "dist": "docs",
-    "homepage": "/region-picker/"
+    "bili": "^3.0.2",
+    "gh-pages": "^1.1.0",
+    "poi": "^9.6.13",
+    "rimraf": "^2.6.2",
+    "rollup-plugin-copy": "^0.2.3",
+    "rollup-plugin-vue": "^3.0.0",
+    "stylus-loader": "^3.0.2",
+    "webpack-cdn-plugin": "^1.8.1"
   }
 }
