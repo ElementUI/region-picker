@@ -1,6 +1,6 @@
 {
   "name": "region-picker",
-  "version": "0.0.17",
+  "version": "1.0.0",
   "description": "A region picker based on Vue and ElementUI.",
   "main": "dist/region-picker.cjs.js",
   "module": "dist/region-picker.es.js",
