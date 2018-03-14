@@ -18,6 +18,12 @@
     h3 禁用
     region-picker(disabled, :data="data")
 
+    h3 禁用部分
+    region-picker(:disabled="['110000']", :data="data")
+
+    h3 向上弹出
+    region-picker(:data="data", placement="top", multiple)
+
     h3 单选默认值
     region-picker(v-model="singlePlace", :data="data")
 
@@ -32,42 +38,66 @@
 </template>
 
 <script>
-import RegionPicker from '../index';
-import data from '../components/data';
+// import RegionPicker from '../index'
+import RegionPicker from 'region-picker'
+import 'region-picker/dist/region-picker.css'
+import data from 'region-picker/dist/data.json'
 
 export default {
   name: 'app',
   components: {
-    RegionPicker,
+    RegionPicker
   },
   data() {
     return {
       data,
-      defferedData: {},
+      defferedData: null,
       singlePlace: '310107',
-      multiplePlace: ['310101', '310104', '310105', '310106', '310109', '310110', '310112', '310113', '310114', '310115', '310116', '310117', '310118', '310120', '310151'],
+      multiplePlace: [
+        '310101',
+        '310104',
+        '310105',
+        '310106',
+        '310109',
+        '310110',
+        '310112',
+        '310113',
+        '310114',
+        '310115',
+        '310116',
+        '310117',
+        '310118',
+        '310120',
+        '310151'
+      ],
       defferedPlace: '310107'
     }
   },
   mounted() {
-    setTimeout(() => this.defferedData= data, 3000);
+    setTimeout(() => (this.defferedData = data), 3000)
   }
-};
+}
 </script>
 
 <style lang="stylus">
-body
-  font-family Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif
-  overflow auto
-  font-weight 400
-  -webkit-font-smoothing antialiased
-  color: #1f2f3d
-  padding 20px 20px 100px
-h2
-h3
-  font-weight 400
-h3
-  margin 45px 0 15px
-p
-  font-size 14px
+body {
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+  overflow: auto;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  color: #1f2f3d;
+  padding: 20px 20px 100px;
+}
+
+h2, h3 {
+  font-weight: 400;
+}
+
+h3 {
+  margin: 45px 0 15px;
+}
+
+p {
+  font-size: 14px;
+}
 </style>
