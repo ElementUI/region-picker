@@ -37,6 +37,10 @@ export default {
       type: [Boolean, Array],
       default: false
     },
+    collapseTags: {
+      type: Boolean,
+      default: false
+    },
     // placeholder
     placeholder: String,
     searchPlaceholder: {
@@ -69,31 +73,71 @@ export default {
                 'region-picker__tag__list': true
               }
             },
-            [
-              this.selected.map(node =>
-                h(
-                  'span',
-                  {
-                    class: {
-                      'region-picker__tag__item': true
+            this.collapseTags
+              ? [
+                  h(
+                    'span',
+                    {
+                      class: {
+                        'region-picker__tag__item': true
+                      },
+                      key: this.selected[0].data.adcode
                     },
-                    key: node.data.adcode
-                  },
-                  [
-                    h('span', {}, [node.fullName]),
-                    h('i', {
-                      class: { 'el-icon-circle-close': true },
-                      on: {
-                        click: $event => {
-                          $event.stopPropagation()
-                          this.handleSelect(node)
+                    [
+                      h('span', {}, [this.selected[0].fullName]),
+                      h('i', {
+                        class: { 'el-icon-circle-close': true },
+                        on: {
+                          click: $event => {
+                            $event.stopPropagation()
+                            this.handleSelect(this.selected[0])
+                          }
                         }
-                      }
-                    })
-                  ]
-                )
-              )
-            ]
+                      })
+                    ]
+                  ),
+                  h(
+                    'span',
+                    {
+                      class: {
+                        'region-picker__tag__item': true
+                      },
+                      key: 'COUNT',
+                      directives: [
+                        {
+                          name: 'show',
+                          value: this.selected.length > 1
+                        }
+                      ]
+                    },
+                    [h('span', {}, [`+ ${this.selected.length - 1}`])]
+                  )
+                ]
+              : [
+                  this.selected.map(node =>
+                    h(
+                      'span',
+                      {
+                        class: {
+                          'region-picker__tag__item': true
+                        },
+                        key: node.data.adcode
+                      },
+                      [
+                        h('span', {}, [node.fullName]),
+                        h('i', {
+                          class: { 'el-icon-circle-close': true },
+                          on: {
+                            click: $event => {
+                              $event.stopPropagation()
+                              this.handleSelect(node)
+                            }
+                          }
+                        })
+                      ]
+                    )
+                  )
+                ]
           )
         } else if (!this.multiple && this.selected) {
           return h('div', { class: { 'region-picker__label': true } }, [
@@ -463,7 +507,10 @@ export default {
           'transition',
           {
             attrs: {
-              name: this.placement === 'top' ? 'el-zoom-in-bottom' : 'el-zoom-in-top'
+              name:
+                this.placement === 'top'
+                  ? 'el-zoom-in-bottom'
+                  : 'el-zoom-in-top'
             }
           },
           [

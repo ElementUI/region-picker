@@ -17,7 +17,8 @@ yarn add region-picker
 ## Usage
 ```javascript
 import RegionPicker from 'region-picker'
-import data from 'region-picker/data.json'
+import 'region-picker/dist/region-picker.css'
+import data from 'region-picker/dist/data.json'
 
 Vue.use(RegionPicker)
 // or
