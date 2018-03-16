@@ -30,6 +30,9 @@
     h3 多选默认值
     region-picker(v-model="multiplePlace", multiple, :data="data")
 
+    h3 收缩标签
+    region-picker(v-model="multiplePlace", multiple, :data="data", collapse-tags)
+
     h3 无城市数据
     region-picker
 
@@ -38,10 +41,11 @@
 </template>
 
 <script>
-// import RegionPicker from '../index'
-import RegionPicker from 'region-picker'
-import 'region-picker/dist/region-picker.css'
-import data from 'region-picker/dist/data.json'
+import RegionPicker from '../index'
+import data from '../data.json'
+// import RegionPicker from 'region-picker'
+// import 'region-picker/dist/region-picker.css'
+// import data from 'region-picker/dist/data.json'
 
 export default {
   name: 'app',
