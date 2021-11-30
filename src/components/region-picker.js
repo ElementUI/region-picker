@@ -392,6 +392,8 @@ export default {
     clear(e) {
       e.stopPropagation()
       this.selected = []
+      this.$emit('change', null)
+      this.$emit('input', null)
       this.blur()
     }
   },
